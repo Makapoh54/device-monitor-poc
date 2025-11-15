@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package device;
+
+service DeviceStatusService {
+  rpc GetStatus(StatusRequest) returns (DeviceStatusResponse);
+}
+
+message StatusRequest {}
+
+message DeviceStatusResponse {
+  string id = 1;
+  string mac = 2;
+  string name = 3;
+  string model = 4;
+  string shortname = 5;
+  string ip = 6;
+  string productLine = 7;
+  string state = 8;
+  string version = 9;
+  string firmwareStatus = 10;
+  string updateAvailable = 11;
+  bool isConsole = 12;
+  bool isManaged = 13;
+  string startupTime = 14;
+  string adoptionTime = 15;
+  string checksum = 16;
+}
+
