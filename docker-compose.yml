@@ -1,0 +1,246 @@
+version: '3.8'
+
+services:
+  device-mock-udm-se:
+    image: device-mock:latest
+    container_name: device-mock-udm-se
+    environment:
+      NODE_ENV: production
+      APP_ENV: production
+      CONTAINER_NAME: device-mock-udm-se
+      DEVICE_IP: 192.168.1.1
+      DEVICE_VERSION: 4.1.13
+      DEVICE_FIRMWARE_STATUS: upToDate
+      DEVICE_PRODUCT_LINE: network
+      DEVICE_SHORTNAME: UDMPROSE
+      DEVICE_MODEL: UniFi Dream Machine SE
+      DEVICE_NAME: udm-se.local
+      DEVICE_IS_MANAGED: 'true'
+      DEVICE_ADOPTION_TIME: '2025-06-19T13:41:43Z'
+    ports:
+      - '3001:3000'
+      - '50051:50051'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - device-mock-net
+
+  device-mock-udm-pro:
+    image: device-mock:latest
+    container_name: device-mock-udm-pro
+    environment:
+      NODE_ENV: production
+      APP_ENV: production
+      CONTAINER_NAME: device-mock-udm-pro
+      DEVICE_IP: 192.168.1.2
+      DEVICE_VERSION: 4.1.12
+      DEVICE_FIRMWARE_STATUS: upToDate
+      DEVICE_PRODUCT_LINE: network
+      DEVICE_SHORTNAME: UDMPRO
+      DEVICE_MODEL: UniFi Dream Machine Pro
+      DEVICE_NAME: udm-pro.local
+      DEVICE_IS_MANAGED: 'true'
+      DEVICE_ADOPTION_TIME: '2025-06-18T10:15:00Z'
+    ports:
+      - '3002:3000'
+      - '50052:50051'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - device-mock-net
+
+  device-mock-udr:
+    image: device-mock:latest
+    container_name: device-mock-udr
+    environment:
+      NODE_ENV: production
+      APP_ENV: production
+      CONTAINER_NAME: device-mock-udr
+      DEVICE_IP: 192.168.1.3
+      DEVICE_VERSION: 4.1.10
+      DEVICE_FIRMWARE_STATUS: updateAvailable
+      DEVICE_PRODUCT_LINE: network
+      DEVICE_SHORTNAME: UDR
+      DEVICE_MODEL: UniFi Dream Router
+      DEVICE_NAME: udr.local
+      DEVICE_IS_MANAGED: 'true'
+      DEVICE_ADOPTION_TIME: '2025-06-17T09:00:00Z'
+    ports:
+      - '3003:3000'
+      - '50053:50051'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - device-mock-net
+
+  device-mock-uxg-lite:
+    image: device-mock:latest
+    container_name: device-mock-uxg-lite
+    environment:
+      NODE_ENV: production
+      APP_ENV: production
+      CONTAINER_NAME: device-mock-uxg-lite
+      DEVICE_IP: 192.168.1.4
+      DEVICE_VERSION: 4.1.9
+      DEVICE_FIRMWARE_STATUS: upToDate
+      DEVICE_PRODUCT_LINE: network
+      DEVICE_SHORTNAME: UXGLITE
+      DEVICE_MODEL: UniFi Next-Gen Gateway Lite
+      DEVICE_NAME: uxg-lite.local
+      DEVICE_IS_MANAGED: 'true'
+      DEVICE_ADOPTION_TIME: '2025-06-16T08:30:00Z'
+    ports:
+      - '3004:3000'
+      - '50054:50051'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - device-mock-net
+
+  device-mock-usw-24-poe:
+    image: device-mock:latest
+    container_name: device-mock-usw-24-poe
+    environment:
+      NODE_ENV: production
+      APP_ENV: production
+      CONTAINER_NAME: device-mock-usw-24-poe
+      DEVICE_IP: 192.168.1.11
+      DEVICE_VERSION: 6.2.1
+      DEVICE_FIRMWARE_STATUS: upToDate
+      DEVICE_PRODUCT_LINE: network
+      DEVICE_SHORTNAME: USW24POE
+      DEVICE_MODEL: UniFi Switch 24 PoE
+      DEVICE_NAME: usw-24-poe.local
+      DEVICE_IS_MANAGED: 'true'
+      DEVICE_ADOPTION_TIME: '2025-06-15T07:45:00Z'
+    ports:
+      - '3005:3000'
+      - '50055:50051'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - device-mock-net
+
+  device-mock-usw-48:
+    image: device-mock:latest
+    container_name: device-mock-usw-48
+    environment:
+      NODE_ENV: production
+      APP_ENV: production
+      CONTAINER_NAME: device-mock-usw-48
+      DEVICE_IP: 192.168.1.12
+      DEVICE_VERSION: 6.2.0
+      DEVICE_FIRMWARE_STATUS: updateAvailable
+      DEVICE_PRODUCT_LINE: network
+      DEVICE_SHORTNAME: USW48
+      DEVICE_MODEL: UniFi Switch 48
+      DEVICE_NAME: usw-48.local
+      DEVICE_IS_MANAGED: 'true'
+      DEVICE_ADOPTION_TIME: '2025-06-14T06:30:00Z'
+    ports:
+      - '3006:3000'
+      - '50056:50051'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - device-mock-net
+
+  device-mock-u6-lite:
+    image: device-mock:latest
+    container_name: device-mock-u6-lite
+    environment:
+      NODE_ENV: production
+      APP_ENV: production
+      CONTAINER_NAME: device-mock-u6-lite
+      DEVICE_IP: 192.168.1.21
+      DEVICE_VERSION: 7.1.0
+      DEVICE_FIRMWARE_STATUS: upToDate
+      DEVICE_PRODUCT_LINE: network
+      DEVICE_SHORTNAME: U6LITE
+      DEVICE_MODEL: UniFi 6 Lite
+      DEVICE_NAME: u6-lite.local
+      DEVICE_IS_MANAGED: 'true'
+      DEVICE_ADOPTION_TIME: '2025-06-13T05:15:00Z'
+    ports:
+      - '3007:3000'
+      - '50057:50051'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - device-mock-net
+
+  device-mock-u6-lr:
+    image: device-mock:latest
+    container_name: device-mock-u6-lr
+    environment:
+      NODE_ENV: production
+      APP_ENV: production
+      CONTAINER_NAME: device-mock-u6-lr
+      DEVICE_IP: 192.168.1.22
+      DEVICE_VERSION: 1.2.3
+      DEVICE_FIRMWARE_STATUS: upToDate
+      DEVICE_PRODUCT_LINE: access
+      DEVICE_SHORTNAME: UA-DFLEX
+      DEVICE_MODEL: UniFi Access Reader Flex
+      DEVICE_NAME: ua-door-flex.local
+      DEVICE_IS_MANAGED: 'true'
+      DEVICE_ADOPTION_TIME: '2025-06-12T04:00:00Z'
+    ports:
+      - '3008:3000'
+      - '50058:50051'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - device-mock-net
+
+  device-mock-uap-nanohd:
+    image: device-mock:latest
+    container_name: device-mock-uap-nanohd
+    environment:
+      NODE_ENV: production
+      APP_ENV: production
+      CONTAINER_NAME: device-mock-uap-nanohd
+      DEVICE_IP: 192.168.1.23
+      DEVICE_VERSION: 5.61.2
+      DEVICE_FIRMWARE_STATUS: outOfDate
+      DEVICE_PRODUCT_LINE: protect
+      DEVICE_SHORTNAME: UVCG4PRO
+      DEVICE_MODEL: UniFi Protect G4 Pro Camera
+      DEVICE_NAME: g4-pro.local
+      DEVICE_IS_MANAGED: 'false'
+      DEVICE_ADOPTION_TIME: '2025-06-11T03:30:00Z'
+    ports:
+      - '3009:3000'
+      - '50059:50051'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - device-mock-net
+
+  device-mock-uap-ac-lite:
+    image: device-mock:latest
+    container_name: device-mock-uap-ac-lite
+    environment:
+      NODE_ENV: production
+      APP_ENV: production
+      CONTAINER_NAME: device-mock-uap-ac-lite
+      DEVICE_IP: 192.168.1.24
+      DEVICE_VERSION: 5.61.2
+      DEVICE_FIRMWARE_STATUS: upToDate
+      DEVICE_PRODUCT_LINE: protect
+      DEVICE_SHORTNAME: UVCG4BULLET
+      DEVICE_MODEL: UniFi Protect G4 Bullet Camera
+      DEVICE_NAME: g4-bullet.local
+      DEVICE_IS_MANAGED: 'false'
+      DEVICE_ADOPTION_TIME: '2025-06-10T02:45:00Z'
+    ports:
+      - '3010:3000'
+      - '50060:50051'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - device-mock-net
+
+networks:
+  device-mock-net:
+    driver: bridge

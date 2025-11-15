@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as Docker from 'dockerode';
+import * as os from 'os';
 import { CONTAINER_NAME } from '../../config/consts';
 import { ConfigService } from '@nestjs/config';
 import { AppLogger } from '@app/common';
@@ -22,108 +22,76 @@ export interface NetworkInfo {
 
 @Injectable()
 export class NetworkInfoService {
-  private docker: Docker;
-
   constructor(
     private readonly configService: ConfigService,
     private readonly logger: AppLogger,
   ) {
-    this.docker = new Docker({ socketPath: '/var/run/docker.sock' });
     this.logger.setContext(NetworkInfoService.name);
   }
 
-  async getContainerNetworkInfo(
-    containerIdOrName: string = '',
-  ): Promise<NetworkInfo> {
-    const containerName = this.configService.get<string>(
-      CONTAINER_NAME,
-      containerIdOrName,
-    );
-    if (!containerName) {
-      this.logger.warn(
-        'Network container name missing, falling back to local network info',
-      );
-      return this.buildFallbackNetworkInfo(containerIdOrName);
-    }
-    const container = this.docker.getContainer(containerName);
-
-    let data: Docker.ContainerInspectInfo;
-    try {
-      this.logger.log(
-        `Inspecting container "${containerName}" for network info`,
-      );
-      data = await container.inspect();
-    } catch (err: unknown) {
-      const error = err as { statusCode?: number; message?: string };
-      if (error?.statusCode === 404) {
-        this.logger.warn(
-          `Container not found: ${containerIdOrName}, falling back to local network info`,
-        );
-        return this.buildFallbackNetworkInfo(containerIdOrName);
-      }
-      this.logger.warn(
-        error?.message ??
-          'Error inspecting container, falling back to local network info',
-        NetworkInfoService.name,
-      );
-      return this.buildFallbackNetworkInfo(containerIdOrName);
-    }
-
-    const id = data.Id;
-    const name = data.Name ? data.Name.replace(/^\//, '') : null;
-
-    const topLevelMac = data.NetworkSettings?.MacAddress || null;
-    const topLevelIPv4 = data.NetworkSettings?.IPAddress || null;
-    const topLevelIPv6 = data.NetworkSettings?.GlobalIPv6Address || null;
-
-    const networksRaw = data.NetworkSettings?.Networks ?? {};
-    const networks: NetworkAddressInfo[] = [];
-
-    for (const [networkName, net] of Object.entries(networksRaw)) {
-      networks.push({
-        networkName,
-        macAddress: net?.MacAddress || null,
-        ipv4Address: net?.IPAddress || null,
-        ipv6Address: net?.GlobalIPv6Address || null,
-      });
-    }
-
-    let effectiveIPv4 = topLevelIPv4;
-    let effectiveIPv6 = topLevelIPv6;
-    let effectiveMac = topLevelMac;
-
-    if ((!effectiveIPv4 || !effectiveMac) && networks.length > 0) {
-      const primary = networks[0];
-      effectiveIPv4 = effectiveIPv4 || primary.ipv4Address;
-      effectiveIPv6 = effectiveIPv6 || primary.ipv6Address;
-      effectiveMac = effectiveMac || primary.macAddress;
-    }
-
-    const result: NetworkInfo = {
-      id,
-      name,
-      macAddress: effectiveMac,
-      ipv4Address: effectiveIPv4,
-      ipv6Address: effectiveIPv6,
-      networks,
-    };
+  getContainerNetworkInfo(containerIdOrName: string = ''): NetworkInfo {
+    const containerName =
+      this.configService.get<string>(CONTAINER_NAME, containerIdOrName) ??
+      containerIdOrName;
 
     this.logger.debug(
-      `Container network info: mac=${result.macAddress}, ipv4=${result.ipv4Address}`,
+      `Using OS network interfaces for network info (containerName="${containerName}")`,
       NetworkInfoService.name,
     );
 
-    return result;
+    return this.buildNetworkInfo(containerName || 'local');
   }
 
-  private buildFallbackNetworkInfo(containerIdOrName?: string): NetworkInfo {
+  private buildNetworkInfo(containerIdOrName?: string): NetworkInfo {
+    const interfaces = os.networkInterfaces();
+
+    const networks: NetworkAddressInfo[] = [];
+    let macAddress: string | null = null;
+    let ipv4Address: string | null = null;
+    let ipv6Address: string | null = null;
+
+    for (const [networkName, addrs] of Object.entries(interfaces)) {
+      if (!addrs) continue;
+
+      let netMac: string | null = null;
+      let netIPv4: string | null = null;
+      let netIPv6: string | null = null;
+
+      for (const addr of addrs) {
+        if (addr.internal) continue;
+
+        if (!netMac && addr.mac && addr.mac !== '00:00:00:00:00:00') {
+          netMac = addr.mac;
+        }
+
+        if (addr.family === 'IPv4') {
+          netIPv4 = addr.address;
+        } else if (addr.family === 'IPv6') {
+          netIPv6 = addr.address;
+        }
+      }
+
+      if (netIPv4 || netIPv6) {
+        networks.push({
+          networkName,
+          macAddress: netMac,
+          ipv4Address: netIPv4,
+          ipv6Address: netIPv6,
+        });
+
+        if (!ipv4Address && netIPv4) ipv4Address = netIPv4;
+        if (!ipv6Address && netIPv6) ipv6Address = netIPv6;
+        if (!macAddress && netMac) macAddress = netMac;
+      }
+    }
+
     return {
       id: containerIdOrName ?? 'local',
       name: containerIdOrName ?? 'local',
-      macAddress: null,
-      ipv4Address: '127.0.0.1',
-      ipv6Address: null,
-      networks: [],
+      macAddress,
+      ipv4Address,
+      ipv6Address,
+      networks,
     };
   }
 }
