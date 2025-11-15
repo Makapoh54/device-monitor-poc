@@ -11,6 +11,7 @@ RUN npm run build -- device-mock
 
 FROM node:22-alpine AS runner
 
+RUN apk add --no-cache openssl
 WORKDIR /usr/src/app
 
 ENV NODE_ENV=production

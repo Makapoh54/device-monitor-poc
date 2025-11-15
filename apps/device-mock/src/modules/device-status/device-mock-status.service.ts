@@ -9,9 +9,8 @@ import {
   NetworkInfo,
   NetworkInfoService,
 } from '../network-info/network-info.service';
-import { AppLogger } from '@app/common';
+import { AppLogger, ChecksumService } from '@app/common';
 import { DeviceStatus, DeviceState } from '@app/device-client';
-import * as crypto from 'crypto';
 
 @Injectable()
 export class DeviceMockStatusService
@@ -27,6 +26,7 @@ export class DeviceMockStatusService
     private readonly logger: AppLogger,
     private readonly networkInfoService: NetworkInfoService,
     private readonly configService: ConfigService,
+    private readonly checksumService: ChecksumService,
   ) {
     this.logger.setContext(DeviceMockStatusService.name);
   }
@@ -60,13 +60,13 @@ export class DeviceMockStatusService
     this.networkInfo = this.networkInfoService.getContainerNetworkInfo();
   }
 
-  private computeChecksum(status: Omit<DeviceStatus, 'checksum'>): string {
-    const hash = crypto.createHash('md5');
-    hash.update(JSON.stringify(status));
-    return hash.digest('hex');
+  private async computeChecksum(
+    status: Omit<DeviceStatus, 'checksum'>,
+  ): Promise<string> {
+    return this.checksumService.checksum(JSON.stringify(status));
   }
 
-  getStatus(): DeviceStatus {
+  async getStatus(): Promise<DeviceStatus> {
     const now = new Date();
     const uptimeMs = now.getTime() - this.startDate.getTime();
     const uptimeSeconds = Math.floor(uptimeMs / 1000);
@@ -146,8 +146,11 @@ export class DeviceMockStatusService
       DeviceMockStatusService.name,
     );
 
-    const checksum = this.computeChecksum(config);
+    const checksum = await this.computeChecksum(config);
 
-    return { ...config, checksum };
+    return {
+      ...config,
+      checksum,
+    };
   }
 }

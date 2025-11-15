@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LoggerModule } from '@app/common';
+import { ChecksumService, LoggerModule } from '@app/common';
 import { DeviceClientModule } from '@app/device-client';
 import { DiscoveryModule } from '../discovery/discovery.module';
 import { DeviceEntity } from './device.entity';
@@ -14,7 +14,7 @@ import { MonitorController } from './monitor.controller';
     TypeOrmModule.forFeature([DeviceEntity]),
     DeviceClientModule,
   ],
-  providers: [MonitorService],
+  providers: [MonitorService, ChecksumService],
   controllers: [MonitorController],
 })
 export class MonitorModule {}

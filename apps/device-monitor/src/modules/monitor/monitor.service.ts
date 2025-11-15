@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cron } from '@nestjs/schedule';
-import { AppLogger, Retry } from '@app/common';
+import { AppLogger, ChecksumService, Retry } from '@app/common';
 import {
   DeviceClientPoolService,
   DeviceStatus,
@@ -37,6 +37,7 @@ export class MonitorService {
     @InjectRepository(DeviceEntity)
     private readonly deviceRepository: Repository<DeviceEntity>,
     private readonly deviceClientPool: DeviceClientPoolService,
+    private readonly checksumService: ChecksumService,
   ) {
     this.logger.setContext(MonitorService.name);
   }
@@ -68,7 +69,17 @@ export class MonitorService {
     for (const discovered of discoveredDevices) {
       try {
         const status = await this.fetchDeviceStatus(discovered);
+        const { checksum, ...payload } = status;
 
+        if (!('updateAvailable' in payload)) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          payload.updateAvailable = null;
+        }
+
+        if (!(await this.checksumService.verifyChecksum(payload, checksum))) {
+          this.logger.error(`Wrong checksum ${JSON.stringify(status)}`);
+        }
         const existing = dbDevicesByMac.get(status.mac);
         if (existing && existing.host !== discovered.host) {
           this.logger.debug(
@@ -134,6 +145,17 @@ export class MonitorService {
 
       try {
         const status = await this.pollDeviceWithRetry(discovered);
+        const { checksum, ...payload } = status;
+
+        if (!('updateAvailable' in payload)) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          payload.updateAvailable = null;
+        }
+
+        if (!(await this.checksumService.verifyChecksum(payload, checksum))) {
+          this.logger.error(`Wrong checksum ${JSON.stringify(status)}`);
+        }
         this.pollFailureCountsByMac.delete(mac);
 
         await this.upsertDeviceStatus(status, discovered, DeviceState.ONLINE);

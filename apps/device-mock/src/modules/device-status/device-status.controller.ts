@@ -16,12 +16,12 @@ export class DeviceStatusService {
     description: 'Current mocked device health status',
     type: DeviceStatusDto,
   })
-  getStatusRest(): DeviceStatusDto {
+  async getStatusRest(): Promise<DeviceStatusDto> {
     return this.deviceMockService.getStatus();
   }
 
   @GrpcMethod()
-  getStatus(): DeviceStatusDto {
+  async getStatus(): Promise<DeviceStatusDto> {
     return this.deviceMockService.getStatus();
   }
 }
