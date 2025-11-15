@@ -25,12 +25,16 @@ export class Config {
     name: process.env.DEVICE_NAME || '',
     isManaged: process.env.DEVICE_IS_MANAGED === 'true',
     adoptionTime: process.env.DEVICE_ADOPTION_TIME || '',
+    behaviour:
+      (process.env.DEVICE_BEHAVIOUR as DeviceMeta['behaviour']) || 'stable',
   };
   readonly apiVersion = '1';
   readonly [CONTAINER_NAME] = process.env.CONTAINER_NAME;
 
   readonly httpPort: number = Number(process.env.PORT) || 3000;
   readonly grpcPort: number = Number(process.env.GRPC_PORT) || 50051;
+  readonly isGrpcEnabled: boolean =
+    process.env.DEVICE_GRPC_ENABLED === 'true';
 }
 
 export const configInstance = (): Config => new Config();

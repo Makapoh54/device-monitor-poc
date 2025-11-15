@@ -1,8 +1,8 @@
 export enum DeviceState {
-  'offline',
-  'online',
-  'degraded',
-  'unkwown',
+  OFFLINE = 'offline',
+  ONLINE = 'online',
+  DEGRADED = 'degraded',
+  UNKOWN = 'unkwown',
 }
 
 export interface DeviceStatus {

@@ -34,6 +34,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const httpPort = configService.get<number>('httpPort') ?? 3000;
   const grpcPort = configService.get<number>('grpcPort') ?? 50051;
+  const isGrpcEnabled = configService.get<boolean>('isGrpcEnabled') ?? false;
 
   await app.register(helmet, {
     contentSecurityPolicy: false,
@@ -41,24 +42,31 @@ async function bootstrap() {
 
   setupSwagger(app);
 
-  appLogger.log(`Starting gRPC microservice on port ${grpcPort}`, 'Bootstrap');
-  app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.GRPC,
-    options: {
-      package: 'device',
-      protoPath: join(
-        process.cwd(),
-        'libs',
-        'device-client',
-        'src',
-        'dto',
-        'device-status.proto',
-      ),
-      url: `0.0.0.0:${grpcPort}`,
-    },
-  });
+  if (isGrpcEnabled) {
+    appLogger.log(
+      `Starting gRPC microservice on port ${grpcPort}`,
+      'Bootstrap',
+    );
+    app.connectMicroservice<MicroserviceOptions>({
+      transport: Transport.GRPC,
+      options: {
+        package: 'device',
+        protoPath: join(
+          process.cwd(),
+          'libs',
+          'device-client',
+          'src',
+          'dto',
+          'device-status.proto',
+        ),
+        url: `0.0.0.0:${grpcPort}`,
+      },
+    });
 
-  await app.startAllMicroservices();
+    await app.startAllMicroservices();
+  } else {
+    appLogger.log('gRPC microservice disabled for this mock', 'Bootstrap');
+  }
   appLogger.log(`Starting HTTP server on port ${httpPort}`, 'Bootstrap');
   await app.listen({
     port: httpPort,

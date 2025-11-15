@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { RestTransportConfig } from './transport/rest.transport';
-import { GrpcTransportConfig } from './transport/grpc.transport';
+import { RestTransportConfig, GrpcTransportConfig } from './transport';
 import { DeviceStatus } from './dto/device-status.dto';
 import { DeviceClientTransport } from './transport/device-client.transport';
 

@@ -1,3 +1,5 @@
+export type DeviceBehaviour = 'stable' | 'degraded' | 'down';
+
 export type DeviceMeta = {
   version: string;
   firmwareStatus: string;
@@ -7,4 +9,5 @@ export type DeviceMeta = {
   name: string;
   isManaged: boolean;
   adoptionTime: string | null;
+  behaviour: DeviceBehaviour;
 };

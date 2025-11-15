@@ -2,13 +2,17 @@ version: '3.8'
 
 services:
   device-mock-udm-se:
+    build:
+      context: .
+      dockerfile: apps/device-mock/Dockerfile
     image: device-mock:latest
     container_name: device-mock-udm-se
+    labels:
+      - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
       CONTAINER_NAME: device-mock-udm-se
-      DEVICE_IP: 192.168.1.1
       DEVICE_VERSION: 4.1.13
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: network
@@ -17,6 +21,7 @@ services:
       DEVICE_NAME: udm-se.local
       DEVICE_IS_MANAGED: 'true'
       DEVICE_ADOPTION_TIME: '2025-06-19T13:41:43Z'
+      DEVICE_GRPC_ENABLED: 'true'
     ports:
       - '3001:3000'
       - '50051:50051'
@@ -28,11 +33,12 @@ services:
   device-mock-udm-pro:
     image: device-mock:latest
     container_name: device-mock-udm-pro
+    labels:
+      - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
       CONTAINER_NAME: device-mock-udm-pro
-      DEVICE_IP: 192.168.1.2
       DEVICE_VERSION: 4.1.12
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: network
@@ -41,6 +47,7 @@ services:
       DEVICE_NAME: udm-pro.local
       DEVICE_IS_MANAGED: 'true'
       DEVICE_ADOPTION_TIME: '2025-06-18T10:15:00Z'
+      DEVICE_BEHAVIOUR: degraded
     ports:
       - '3002:3000'
       - '50052:50051'
@@ -52,11 +59,12 @@ services:
   device-mock-udr:
     image: device-mock:latest
     container_name: device-mock-udr
+    labels:
+      - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
       CONTAINER_NAME: device-mock-udr
-      DEVICE_IP: 192.168.1.3
       DEVICE_VERSION: 4.1.10
       DEVICE_FIRMWARE_STATUS: updateAvailable
       DEVICE_PRODUCT_LINE: network
@@ -65,6 +73,7 @@ services:
       DEVICE_NAME: udr.local
       DEVICE_IS_MANAGED: 'true'
       DEVICE_ADOPTION_TIME: '2025-06-17T09:00:00Z'
+      DEVICE_BEHAVIOUR: down
     ports:
       - '3003:3000'
       - '50053:50051'
@@ -76,11 +85,12 @@ services:
   device-mock-uxg-lite:
     image: device-mock:latest
     container_name: device-mock-uxg-lite
+    labels:
+      - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
       CONTAINER_NAME: device-mock-uxg-lite
-      DEVICE_IP: 192.168.1.4
       DEVICE_VERSION: 4.1.9
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: network
@@ -89,6 +99,7 @@ services:
       DEVICE_NAME: uxg-lite.local
       DEVICE_IS_MANAGED: 'true'
       DEVICE_ADOPTION_TIME: '2025-06-16T08:30:00Z'
+      DEVICE_BEHAVIOUR: degraded
     ports:
       - '3004:3000'
       - '50054:50051'
@@ -100,11 +111,12 @@ services:
   device-mock-usw-24-poe:
     image: device-mock:latest
     container_name: device-mock-usw-24-poe
+    labels:
+      - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
       CONTAINER_NAME: device-mock-usw-24-poe
-      DEVICE_IP: 192.168.1.11
       DEVICE_VERSION: 6.2.1
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: network
@@ -113,6 +125,7 @@ services:
       DEVICE_NAME: usw-24-poe.local
       DEVICE_IS_MANAGED: 'true'
       DEVICE_ADOPTION_TIME: '2025-06-15T07:45:00Z'
+      DEVICE_GRPC_ENABLED: 'true'
     ports:
       - '3005:3000'
       - '50055:50051'
@@ -124,11 +137,12 @@ services:
   device-mock-usw-48:
     image: device-mock:latest
     container_name: device-mock-usw-48
+    labels:
+      - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
       CONTAINER_NAME: device-mock-usw-48
-      DEVICE_IP: 192.168.1.12
       DEVICE_VERSION: 6.2.0
       DEVICE_FIRMWARE_STATUS: updateAvailable
       DEVICE_PRODUCT_LINE: network
@@ -137,6 +151,7 @@ services:
       DEVICE_NAME: usw-48.local
       DEVICE_IS_MANAGED: 'true'
       DEVICE_ADOPTION_TIME: '2025-06-14T06:30:00Z'
+      DEVICE_BEHAVIOUR: degraded
     ports:
       - '3006:3000'
       - '50056:50051'
@@ -148,11 +163,12 @@ services:
   device-mock-u6-lite:
     image: device-mock:latest
     container_name: device-mock-u6-lite
+    labels:
+      - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
       CONTAINER_NAME: device-mock-u6-lite
-      DEVICE_IP: 192.168.1.21
       DEVICE_VERSION: 7.1.0
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: network
@@ -172,11 +188,12 @@ services:
   device-mock-u6-lr:
     image: device-mock:latest
     container_name: device-mock-u6-lr
+    labels:
+      - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
       CONTAINER_NAME: device-mock-u6-lr
-      DEVICE_IP: 192.168.1.22
       DEVICE_VERSION: 1.2.3
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: access
@@ -196,11 +213,12 @@ services:
   device-mock-uap-nanohd:
     image: device-mock:latest
     container_name: device-mock-uap-nanohd
+    labels:
+      - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
       CONTAINER_NAME: device-mock-uap-nanohd
-      DEVICE_IP: 192.168.1.23
       DEVICE_VERSION: 5.61.2
       DEVICE_FIRMWARE_STATUS: outOfDate
       DEVICE_PRODUCT_LINE: protect
@@ -209,6 +227,7 @@ services:
       DEVICE_NAME: g4-pro.local
       DEVICE_IS_MANAGED: 'false'
       DEVICE_ADOPTION_TIME: '2025-06-11T03:30:00Z'
+      DEVICE_BEHAVIOUR: degraded
     ports:
       - '3009:3000'
       - '50059:50051'
@@ -220,11 +239,12 @@ services:
   device-mock-uap-ac-lite:
     image: device-mock:latest
     container_name: device-mock-uap-ac-lite
+    labels:
+      - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
       CONTAINER_NAME: device-mock-uap-ac-lite
-      DEVICE_IP: 192.168.1.24
       DEVICE_VERSION: 5.61.2
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: protect
@@ -241,6 +261,57 @@ services:
     networks:
       - device-mock-net
 
+  monitor-db:
+    image: postgres:16-alpine
+    container_name: monitor-db
+    environment:
+      POSTGRES_DB: device_monitor
+      POSTGRES_USER: monitor
+      POSTGRES_PASSWORD: monitor
+    ports:
+      - '5432:5432'
+    volumes:
+      - monitor-db-data:/var/lib/postgresql/data
+    networks:
+      - device-mock-net
+
+  device-monitor:
+    build:
+      context: .
+      dockerfile: apps/device-monitor/Dockerfile
+    user: "0:0"
+    container_name: device-monitor
+    depends_on:
+      - monitor-db
+    environment:
+      NODE_ENV: production
+      DOCKER_SOCKET_PATH: /var/run/docker.sock
+      DISCOVERY_STRATEGIES: DockerSocketDiscovery
+      DEVICE_HTTP_PORT: '3000'
+      DEVICE_GRPC_PORT: '50051'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - '4000:3000'
+    networks:
+      - device-mock-net
+
+  monitor-sql-explorer:
+    image: dpage/pgadmin4:8.13
+    container_name: monitor-sql-explorer
+    depends_on:
+      - monitor-db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - '5050:80'
+    networks:
+      - device-mock-net
+
 networks:
   device-mock-net:
     driver: bridge
+
+volumes:
+  monitor-db-data:

@@ -13,7 +13,8 @@ export class RestDeviceClientTransport implements DeviceClientTransport {
 
   async getStatus(): Promise<DeviceStatus> {
     const baseUrl = this.config.baseUrl.replace(/\/+$/, '');
-    const url = `${baseUrl}/device/status`;
+
+    const url = new URL(`${baseUrl}/device/status`);
 
     const response = await fetch(url, {
       method: 'GET',
