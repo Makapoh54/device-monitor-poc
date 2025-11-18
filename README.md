@@ -6,12 +6,23 @@ This repository contains two cooperating services plus a small UI:
 - **Device Emulator** - a containerised, configurable device API that exposes the same health payload over REST and optionally gRPC, with pluggable behaviour (stable / degraded / down).
 - **Docker Compose demo** - spins up 10 emulated devices, one monitor instance, Postgres, and pgAdmin so you can see the system in action end‑to‑end.
 
+## TL;DR – run the demo
+
+- Start everything (monitor, emulators, Postgres, pgAdmin):  
+  `docker compose up --build`
+- Open the frontend:  
+  `http://127.0.0.1:4000/`
+- Optional: API and DB tools:  
+  - Swagger UI: `http://127.0.0.1:4000/api`  
+  - pgAdmin: `http://127.0.0.1:5050/`
+
 ## Table of contents
 
 - [Device Monitor](#device-monitor)
 - [Device Emulator](#device-emulator)
 - [Shared Device Client library](#shared-device-client-library)
 - [Docker Compose demo](#docker-compose-demo)
+- [AI assistance usage](#ai-assistance-usage)
 
 
 ## Device Monitor
@@ -435,3 +446,11 @@ Once the stack is running:
   - Shows **toast notifications** whenever a device changes state, making it easy to see flapping devices or outages as they happen.
 
 This setup gives you a complete, reproducible environment to experiment with device discovery, health monitoring over REST and gRPC, and UI visualisation, without needing any physical hardware.
+
+## AI assistance usage
+
+This PoC was developed primarily by hand, with **limited AI assistance** used as a supporting tool. In particular:
+
+- I used AI coding assistants (such as ChatGPT / Codex-style tools) to sanity‑check ideas, clarify library APIs, and get feedback on alternative designs.
+- I asked for help drafting or tightening some documentation text (including this section) and for small snippets or test scaffolding in a few places.
+- All non‑trivial architectural decisions, business logic, and final code were designed, reviewed, and integrated by me; AI suggestions were always treated as proposals and edited or discarded as needed.
