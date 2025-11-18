@@ -9,7 +9,7 @@ This repository contains two cooperating services plus a small UI:
 ## TL;DR – run the demo
 
 - Start everything (monitor, emulators, Postgres, pgAdmin):  
-  `docker compose up --build`
+  `docker compose up -d`
 - Open the frontend:  
   `http://127.0.0.1:4000/`
 - Optional: API and DB tools:  
