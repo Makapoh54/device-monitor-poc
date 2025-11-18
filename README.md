@@ -15,6 +15,7 @@ This repository contains two cooperating services plus a small UI:
 - Optional: API and DB tools:  
   - Swagger UI: `http://127.0.0.1:4000/api`  
   - pgAdmin: `http://127.0.0.1:5050/`
+  - If Docker prints a pull/build warning for the emulator image, you can ignore it – all emulator services reuse the same local image on purpose.
 
 ## Table of contents
 
