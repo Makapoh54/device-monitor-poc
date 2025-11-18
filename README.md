@@ -10,7 +10,7 @@ This repository contains two cooperating services plus a small UI:
 
 - Start everything (monitor, emulators, Postgres, pgAdmin):  
   `docker compose up -d`
-- Open the frontend:  
+- Open the frontend (first discovery will take 30 seconds):  
   `http://127.0.0.1:4000/`
 - Optional: API and DB tools:  
   - Swagger UI: `http://127.0.0.1:4000/api`  
