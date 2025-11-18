@@ -11,11 +11,12 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { AppLogger } from '@app/common';
 import { configInstance } from './config';
+import { VersioningType } from '@nestjs/common';
 
 function setupSwagger(app: NestFastifyApplication): void {
   const config = new DocumentBuilder()
-    .setTitle('Device Mock API')
-    .setDescription('REST and gRPC mock device endpoints')
+    .setTitle('Device Emulator API')
+    .setDescription('REST emulator device endpoints')
     .setVersion(configInstance().version)
     .build();
 
@@ -39,7 +40,9 @@ async function bootstrap() {
   await app.register(helmet, {
     contentSecurityPolicy: false,
   });
-
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
   setupSwagger(app);
 
   if (isGrpcEnabled) {
@@ -65,7 +68,7 @@ async function bootstrap() {
 
     await app.startAllMicroservices();
   } else {
-    appLogger.log('gRPC microservice disabled for this mock', 'Bootstrap');
+    appLogger.log('gRPC microservice disabled for this emulator', 'Bootstrap');
   }
   appLogger.log(`Starting HTTP server on port ${httpPort}`, 'Bootstrap');
   await app.listen({

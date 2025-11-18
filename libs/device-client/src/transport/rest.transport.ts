@@ -2,9 +2,6 @@ import { DeviceStatus } from '../dto/device-status.dto';
 import { DeviceClientTransport } from './device-client.transport';
 
 export interface RestTransportConfig {
-  /**
-   * Base URL of the device-mock service, e.g. "http://localhost:3000".
-   */
   baseUrl: string;
 }
 
@@ -14,7 +11,7 @@ export class RestDeviceClientTransport implements DeviceClientTransport {
   async getStatus(): Promise<DeviceStatus> {
     const baseUrl = this.config.baseUrl.replace(/\/+$/, '');
 
-    const url = new URL(`${baseUrl}/device/status`);
+    const url = new URL(`${baseUrl}/v1/device/status`);
 
     const response = await fetch(url, {
       method: 'GET',

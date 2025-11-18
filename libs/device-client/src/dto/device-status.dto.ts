@@ -15,10 +15,9 @@ export interface DeviceStatus {
   state: DeviceState;
   version: string;
   firmwareStatus: string;
-  updateAvailable: string | null;
   isConsole: boolean;
   isManaged: boolean;
   startupTime: string;
-  adoptionTime: string | null;
+  adoptionTime: string;
   checksum: string;
 }

@@ -13,5 +13,6 @@ export const TEST_ENV = 'test';
 //DB
 export const POSTGRES_CONFIG = 'postgresConfig';
 
-//Disdcover
+//Discover
 export const DISCOVERY_STRATEGIES = 'DISCOVERY_STRATEGIES';
+export const DISCOVERY_DEVICE_LIST = 'DISCOVERY_DEVICE_LIST';

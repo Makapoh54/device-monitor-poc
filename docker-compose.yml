@@ -1,18 +1,18 @@
 version: '3.8'
 
 services:
-  device-mock-udm-se:
+  device-emulator-udm-se:
     build:
       context: .
-      dockerfile: apps/device-mock/Dockerfile
-    image: device-mock:latest
-    container_name: device-mock-udm-se
+      dockerfile: apps/device-emulator/Dockerfile
+    image: device-emulator:latest
+    container_name: device-emulator-udm-se
     labels:
       - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
-      CONTAINER_NAME: device-mock-udm-se
+      CONTAINER_NAME: device-emulator-udm-se
       DEVICE_VERSION: 4.1.13
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: network
@@ -28,17 +28,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - device-mock-net
+      - device-emulator-net
 
-  device-mock-udm-pro:
-    image: device-mock:latest
-    container_name: device-mock-udm-pro
+  device-emulator-udm-pro:
+    image: device-emulator:latest
+    container_name: device-emulator-udm-pro
     labels:
       - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
-      CONTAINER_NAME: device-mock-udm-pro
+      CONTAINER_NAME: device-emulator-udm-pro
       DEVICE_VERSION: 4.1.12
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: network
@@ -54,17 +54,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - device-mock-net
+      - device-emulator-net
 
-  device-mock-udr:
-    image: device-mock:latest
-    container_name: device-mock-udr
+  device-emulator-udr:
+    image: device-emulator:latest
+    container_name: device-emulator-udr
     labels:
       - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
-      CONTAINER_NAME: device-mock-udr
+      CONTAINER_NAME: device-emulator-udr
       DEVICE_VERSION: 4.1.10
       DEVICE_FIRMWARE_STATUS: updateAvailable
       DEVICE_PRODUCT_LINE: network
@@ -80,17 +80,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - device-mock-net
+      - device-emulator-net
 
-  device-mock-uxg-lite:
-    image: device-mock:latest
-    container_name: device-mock-uxg-lite
+  device-emulator-uxg-lite:
+    image: device-emulator:latest
+    container_name: device-emulator-uxg-lite
     labels:
       - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
-      CONTAINER_NAME: device-mock-uxg-lite
+      CONTAINER_NAME: device-emulator-uxg-lite
       DEVICE_VERSION: 4.1.9
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: network
@@ -106,17 +106,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - device-mock-net
+      - device-emulator-net
 
-  device-mock-usw-24-poe:
-    image: device-mock:latest
-    container_name: device-mock-usw-24-poe
+  device-emulator-usw-24-poe:
+    image: device-emulator:latest
+    container_name: device-emulator-usw-24-poe
     labels:
       - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
-      CONTAINER_NAME: device-mock-usw-24-poe
+      CONTAINER_NAME: device-emulator-usw-24-poe
       DEVICE_VERSION: 6.2.1
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: network
@@ -132,17 +132,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - device-mock-net
+      - device-emulator-net
 
-  device-mock-usw-48:
-    image: device-mock:latest
-    container_name: device-mock-usw-48
+  device-emulator-usw-48:
+    image: device-emulator:latest
+    container_name: device-emulator-usw-48
     labels:
       - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
-      CONTAINER_NAME: device-mock-usw-48
+      CONTAINER_NAME: device-emulator-usw-48
       DEVICE_VERSION: 6.2.0
       DEVICE_FIRMWARE_STATUS: updateAvailable
       DEVICE_PRODUCT_LINE: network
@@ -158,17 +158,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - device-mock-net
+      - device-emulator-net
 
-  device-mock-u6-lite:
-    image: device-mock:latest
-    container_name: device-mock-u6-lite
+  device-emulator-u6-lite:
+    image: device-emulator:latest
+    container_name: device-emulator-u6-lite
     labels:
       - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
-      CONTAINER_NAME: device-mock-u6-lite
+      CONTAINER_NAME: device-emulator-u6-lite
       DEVICE_VERSION: 7.1.0
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: network
@@ -183,17 +183,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - device-mock-net
+      - device-emulator-net
 
-  device-mock-u6-lr:
-    image: device-mock:latest
-    container_name: device-mock-u6-lr
+  device-emulator-u6-lr:
+    image: device-emulator:latest
+    container_name: device-emulator-u6-lr
     labels:
       - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
-      CONTAINER_NAME: device-mock-u6-lr
+      CONTAINER_NAME: device-emulator-u6-lr
       DEVICE_VERSION: 1.2.3
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: access
@@ -208,17 +208,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - device-mock-net
+      - device-emulator-net
 
-  device-mock-uap-nanohd:
-    image: device-mock:latest
-    container_name: device-mock-uap-nanohd
+  device-emulator-uap-nanohd:
+    image: device-emulator:latest
+    container_name: device-emulator-uap-nanohd
     labels:
       - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
-      CONTAINER_NAME: device-mock-uap-nanohd
+      CONTAINER_NAME: device-emulator-uap-nanohd
       DEVICE_VERSION: 5.61.2
       DEVICE_FIRMWARE_STATUS: outOfDate
       DEVICE_PRODUCT_LINE: protect
@@ -234,17 +234,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - device-mock-net
+      - device-emulator-net
 
-  device-mock-uap-ac-lite:
-    image: device-mock:latest
-    container_name: device-mock-uap-ac-lite
+  device-emulator-uap-ac-lite:
+    image: device-emulator:latest
+    container_name: device-emulator-uap-ac-lite
     labels:
       - 'device-monitor.enabled=true'
     environment:
       NODE_ENV: production
       APP_ENV: production
-      CONTAINER_NAME: device-mock-uap-ac-lite
+      CONTAINER_NAME: device-emulator-uap-ac-lite
       DEVICE_VERSION: 5.61.2
       DEVICE_FIRMWARE_STATUS: upToDate
       DEVICE_PRODUCT_LINE: protect
@@ -259,7 +259,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - device-mock-net
+      - device-emulator-net
 
   monitor-db:
     image: postgres:16-alpine
@@ -273,7 +273,7 @@ services:
     volumes:
       - monitor-db-data:/var/lib/postgresql/data
     networks:
-      - device-mock-net
+      - device-emulator-net
 
   device-monitor:
     build:
@@ -286,7 +286,9 @@ services:
     environment:
       NODE_ENV: production
       DOCKER_SOCKET_PATH: /var/run/docker.sock
-      DISCOVERY_STRATEGIES: DockerSocketDiscovery
+      DISCOVERY_STRATEGIES: DockerSocketDiscovery,PortScanDiscovery
+      # Optional manual discovery override; when set, discovery strategies are skipped
+      # DISCOVERY_DEVICE_LIST: 'device-emulator-udm-se:3000,device-emulator-udm-pro:3000'
       DEVICE_HTTP_PORT: '3000'
       DEVICE_GRPC_PORT: '50051'
     volumes:
@@ -294,7 +296,7 @@ services:
     ports:
       - '4000:3000'
     networks:
-      - device-mock-net
+      - device-emulator-net
 
   monitor-sql-explorer:
     image: dpage/pgadmin4:8.13
@@ -307,10 +309,10 @@ services:
     ports:
       - '5050:80'
     networks:
-      - device-mock-net
+      - device-emulator-net
 
 networks:
-  device-mock-net:
+  device-emulator-net:
     driver: bridge
 
 volumes:

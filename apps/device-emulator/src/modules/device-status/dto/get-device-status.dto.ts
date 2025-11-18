@@ -58,14 +58,6 @@ export class DeviceStatusDto implements DeviceStatus {
   firmwareStatus: string;
 
   @ApiProperty({
-    description: 'Version string of an available update, if any',
-    example: null,
-    nullable: true,
-    type: String,
-  })
-  updateAvailable: string | null;
-
-  @ApiProperty({
     description: 'Indicates if the device is a console',
     example: true,
   })
@@ -85,15 +77,14 @@ export class DeviceStatusDto implements DeviceStatus {
 
   @ApiProperty({
     description: 'ISO timestamp when the device was adopted',
-    example: null,
-    nullable: true,
+    example: '',
     type: String,
   })
-  adoptionTime: string | null;
+  adoptionTime: string;
 
   @ApiProperty({
     description: 'Checksum representing the configuration / state',
-    example: 'mock-checksum-123456',
+    example: '123456',
   })
   checksum: string;
 }

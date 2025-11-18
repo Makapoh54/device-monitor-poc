@@ -1,8 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
-import { DeviceEntity } from './device.entity';
+import { DeviceEntity } from './entities/device.entity';
 import { MonitorService } from './monitor.service';
+import { configInstance } from '../../config';
 
-@Controller('devices')
+@Controller({ path: 'devices', version: configInstance().apiVersion })
 export class MonitorController {
   constructor(private readonly monitorService: MonitorService) {}
 

@@ -5,6 +5,7 @@ import {
   STAGE_ENV,
   TEST_ENV,
   DeviceMeta,
+  DeviceBehaviour,
   CONTAINER_NAME,
 } from './consts';
 
@@ -16,6 +17,21 @@ export class Config {
   readonly isStage: boolean = process.env.APP_ENV === STAGE_ENV;
   readonly isTest: boolean = process.env.APP_ENV === TEST_ENV;
 
+  private readonly defaultBehaviour: DeviceBehaviour = DeviceBehaviour.STABLE;
+
+  private parseDeviceBehaviour(behaviour?: string): DeviceBehaviour {
+    switch (behaviour) {
+      case DeviceBehaviour.STABLE:
+        return DeviceBehaviour.STABLE;
+      case DeviceBehaviour.DEGRADED:
+        return DeviceBehaviour.DEGRADED;
+      case DeviceBehaviour.DOWN:
+        return DeviceBehaviour.DOWN;
+      default:
+        return this.defaultBehaviour;
+    }
+  }
+
   readonly [DEVICE_META]: DeviceMeta = {
     version: process.env.DEVICE_VERSION || '',
     firmwareStatus: process.env.DEVICE_FIRMWARE_STATUS || '',
@@ -25,16 +41,14 @@ export class Config {
     name: process.env.DEVICE_NAME || '',
     isManaged: process.env.DEVICE_IS_MANAGED === 'true',
     adoptionTime: process.env.DEVICE_ADOPTION_TIME || '',
-    behaviour:
-      (process.env.DEVICE_BEHAVIOUR as DeviceMeta['behaviour']) || 'stable',
+    behaviour: this.parseDeviceBehaviour(process.env.DEVICE_BEHAVIOUR),
   };
   readonly apiVersion = '1';
   readonly [CONTAINER_NAME] = process.env.CONTAINER_NAME;
 
   readonly httpPort: number = Number(process.env.PORT) || 3000;
   readonly grpcPort: number = Number(process.env.GRPC_PORT) || 50051;
-  readonly isGrpcEnabled: boolean =
-    process.env.DEVICE_GRPC_ENABLED === 'true';
+  readonly isGrpcEnabled: boolean = process.env.DEVICE_GRPC_ENABLED === 'true';
 }
 
 export const configInstance = (): Config => new Config();

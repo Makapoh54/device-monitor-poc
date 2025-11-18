@@ -3,9 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ChecksumService, LoggerModule } from '@app/common';
 import { DeviceClientModule } from '@app/device-client';
 import { DiscoveryModule } from '../discovery/discovery.module';
-import { DeviceEntity } from './device.entity';
+import { DeviceEntity } from './entities/device.entity';
 import { MonitorService } from './monitor.service';
 import { MonitorController } from './monitor.controller';
+import { DeviceStatusSyncService } from './device-status-sync.service';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { MonitorController } from './monitor.controller';
     TypeOrmModule.forFeature([DeviceEntity]),
     DeviceClientModule,
   ],
-  providers: [MonitorService, ChecksumService],
+  providers: [MonitorService, DeviceStatusSyncService, ChecksumService],
   controllers: [MonitorController],
 })
 export class MonitorModule {}

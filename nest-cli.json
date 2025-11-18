@@ -28,13 +28,13 @@
         "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
     },
-    "device-mock": {
+    "device-emulator": {
       "type": "application",
-      "root": "apps/device-mock",
+      "root": "apps/device-emulator",
       "entryFile": "main",
-      "sourceRoot": "apps/device-mock/src",
+      "sourceRoot": "apps/device-emulator/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/device-mock/tsconfig.app.json"
+        "tsConfigPath": "apps/device-emulator/tsconfig.app.json"
       }
     },
     "device-monitor": {

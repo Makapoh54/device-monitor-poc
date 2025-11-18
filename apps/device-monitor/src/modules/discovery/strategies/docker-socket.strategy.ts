@@ -19,7 +19,7 @@ export class DockerSocketDiscoveryStrategy implements DiscoveryStrategy {
     this.logger.setContext(DockerSocketDiscoveryStrategy.name);
 
     const socketPath =
-      this.configService.get<string >('DOCKER_SOCKET_PATH') ??
+      this.configService.get<string>('DOCKER_SOCKET_PATH') ??
       '/var/run/docker.sock';
 
     this.labelFilter =

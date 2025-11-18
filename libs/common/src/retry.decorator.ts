@@ -1,3 +1,14 @@
+import { setTimeout as sleep } from 'node:timers/promises';
+
+function resolveDelay(delaysMs: number | number[], attempt: number): number {
+  if (Array.isArray(delaysMs) && delaysMs.length > 0) {
+    const index = Math.min(attempt - 1, delaysMs.length - 1);
+    return delaysMs[index] ?? 0;
+  }
+
+  return delaysMs as number;
+}
+
 export function Retry(
   maxAttempts = 3,
   delaysMs: number | number[] = 0,
@@ -14,31 +25,27 @@ export function Retry(
     }
 
     descriptor.value = async function (...args: any[]) {
-      let attempt = 0;
       let lastError: unknown;
 
-      // eslint-disable-next-line no-constant-condition
-      while (true) {
+      for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
         try {
           return await originalMethod.apply(this, args);
         } catch (error) {
           lastError = error;
-          attempt += 1;
 
-          if (attempt >= maxAttempts) {
+          if (attempt === maxAttempts) {
             throw lastError;
           }
 
-          const delay =
-            Array.isArray(delaysMs) && delaysMs.length > 0
-              ? delaysMs[Math.min(attempt - 1, delaysMs.length - 1)] ?? 0
-              : (delaysMs as number);
+          const delay = resolveDelay(delaysMs, attempt);
 
           if (delay > 0) {
-            await new Promise((resolve) => setTimeout(resolve, delay));
+            await sleep(delay);
           }
         }
       }
+
+      throw lastError;
     };
 
     return descriptor;

@@ -3,7 +3,7 @@ export const APP_RELEASE = 'APP_RELEASE';
 export const NODE_ENV = 'NODE_ENV';
 export const EXTERNAL_CALL_MAX_ATTEMPTS = 3;
 export const CONTAINER_NAME = 'CONTAINER_NAME';
-export const LOGGER_CONTEXT = 'DeviceMock';
+export const LOGGER_CONTEXT = 'DeviceEmulator';
 
 // Env names
 export const PRODUCTION_ENV = 'production';

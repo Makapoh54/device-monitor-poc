@@ -4,7 +4,7 @@
   "description": "",
   "author": "",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
@@ -37,6 +37,7 @@
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "sort-keys": "^6.0.0",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
@@ -78,6 +79,9 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!sort-keys|is-plain-obj)"
+    ],
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
@@ -88,7 +92,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/device-client(|/.*)$": "<rootDir>/libs/device-client/src/$1"
+      "^@app/device-client(|/.*)$": "<rootDir>/libs/device-client/src/$1",
+      "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1"
     }
   }
 }

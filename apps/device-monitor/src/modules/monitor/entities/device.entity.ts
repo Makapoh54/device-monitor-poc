@@ -51,9 +51,6 @@ export class DeviceEntity {
   @Column()
   firmwareStatus: string;
 
-  @Column({ type: 'varchar', nullable: true })
-  updateAvailable: string | null;
-
   @Column({ type: 'boolean' })
   isConsole: boolean;
 

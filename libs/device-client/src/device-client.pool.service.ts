@@ -87,7 +87,7 @@ export class DeviceClientPoolService {
     return this.getStatus({
       transport: DeviceClientTransportType.rest,
       rest: {
-        baseUrl: `http://${host}:${this.restPort}`,
+        baseUrl: this.buildRestBaseUrl(host),
       },
     });
   }
@@ -124,5 +124,13 @@ export class DeviceClientPoolService {
       default:
         throw new Error('Unsupported transport');
     }
+  }
+
+  private buildRestBaseUrl(host: string): string {
+    if (host.includes(':')) {
+      return `http://${host}`;
+    }
+
+    return `http://${host}:${this.restPort}`;
   }
 }

@@ -6,8 +6,10 @@ import { join } from 'path';
 import { LoggerModule } from '@app/common';
 import { MonitorModule } from './modules/monitor/monitor.module';
 import { DiscoveryModule } from './modules/discovery/discovery.module';
-import { DeviceEntity } from './modules/monitor/device.entity';
+import { DeviceEntity } from './modules/monitor/entities/device.entity';
 import { configInstance, PostgresConfig, POSTGRES_CONFIG } from './config';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -41,5 +43,7 @@ import { configInstance, PostgresConfig, POSTGRES_CONFIG } from './config';
     DiscoveryModule,
     MonitorModule,
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

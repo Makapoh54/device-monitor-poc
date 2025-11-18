@@ -7,7 +7,7 @@ COPY nest-cli.json tsconfig*.json ./
 COPY apps ./apps
 COPY libs ./libs
 RUN npm ci
-RUN npm run build -- device-mock
+RUN npm run build -- device-emulator
 
 FROM node:22-alpine AS runner
 
@@ -20,9 +20,9 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 COPY --from=builder /usr/src/app/dist ./dist
-COPY apps/device-mock/.env.development ./apps/device-mock/.env
+COPY apps/device-emulator/.env.development ./apps/device-emulator/.env
 COPY libs ./libs
 
 EXPOSE 3000 50051
 
-CMD ["node", "dist/apps/device-mock/main"]
+CMD ["node", "dist/apps/device-emulator/main"]

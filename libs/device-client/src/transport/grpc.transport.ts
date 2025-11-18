@@ -9,13 +9,7 @@ import { DeviceStatus } from '../dto/device-status.dto';
 import { DeviceClientTransport } from './device-client.transport';
 
 export interface GrpcTransportConfig {
-  /**
-   * gRPC URL of the device-mock service, e.g. "localhost:50051".
-   */
   url: string;
-  /**
-   * Optional custom proto path. Defaults to the proto shipped with this library.
-   */
   protoPath?: string;
 }
 

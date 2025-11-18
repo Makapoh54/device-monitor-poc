@@ -31,6 +31,7 @@ export class Config {
     password: process.env.MONITOR_DB_PASSWORD || 'monitor',
     database: process.env.MONITOR_DB_NAME || 'device_monitor',
   };
+  readonly apiVersion = '1';
 }
 
 export const configInstance = (): Config => new Config();

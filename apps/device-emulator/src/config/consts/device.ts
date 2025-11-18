@@ -1,4 +1,8 @@
-export type DeviceBehaviour = 'stable' | 'degraded' | 'down';
+export enum DeviceBehaviour {
+  STABLE = 'stable',
+  DEGRADED = 'degraded',
+  DOWN = 'down',
+}
 
 export type DeviceMeta = {
   version: string;

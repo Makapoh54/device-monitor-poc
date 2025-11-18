@@ -19,11 +19,9 @@ message DeviceStatusResponse {
   string state = 8;
   string version = 9;
   string firmwareStatus = 10;
-  string updateAvailable = 11;
-  bool isConsole = 12;
-  bool isManaged = 13;
-  string startupTime = 14;
-  string adoptionTime = 15;
-  string checksum = 16;
+  bool isConsole = 11;
+  bool isManaged = 12;
+  string startupTime = 13;
+  string adoptionTime = 14;
+  string checksum = 15;
 }
-
